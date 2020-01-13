@@ -1,4 +1,7 @@
-* {
+html, body, div, span,
+h1, h2, h3, h4, h5, h6,
+p, a,
+form, legend, input, select, textarea, button {
     margin: 0;
     padding: 0;
     border: 0;
@@ -15,24 +18,8 @@ body {
     background-color: #333333;
 }
 
-hr {
-    display: block;
-    unicode-bidi: isolate;
-    margin-block-start: 0.5em;
-    margin-block-end: 0.5em;
-    margin-inline-start: auto;
-    margin-inline-end: auto;
-    overflow: hidden;
-    border-style: inset;
-    border-width: 1px;
-}
-
 a {
     text-decoration: none;
-}
-
-p {
-    margin-top: 0.5rem;
 }
 
 a:hover {
