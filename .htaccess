@@ -1,0 +1,18 @@
+RewriteEngine on
+
+# Can't access files and folders directly, only index files
+Options -Indexes
+
+# Rewriting the base directory (relative path)
+RewriteBase /torrent/
+
+# Redirect to this when error 404 happens
+ErrorDocument 404 /torrent/pages/404.html
+
+# ==== Redirect any page to index.php ====#
+# Qualquer nome diferente de um arquivo existente 
+RewriteCond %{SCRIPT_FILENAME} !-f
+# Qualquer nome diferente de um diretório existente
+# RewriteCond %{SCRIPT_FILENAME} !-d
+
+RewriteRule ^(.*)$ /torrent/index.php?url=$1 [QSA,L]

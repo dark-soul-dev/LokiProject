@@ -1,0 +1,11 @@
+{
+    "name": "",
+    "description": "",
+    "autoload": {
+        "psr-4": {
+            "": ["system/"],
+            "Controller\\": ["system/controller/"],
+            "IvanFilho\\Database\\": ["vendor/ivanfilho/database/src/"]
+        }
+    }
+}

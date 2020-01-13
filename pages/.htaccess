@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteCond %{SCRIPT_FILENAME} !-
+RewriteRule ^(.*)$ /torrent/index.php?url=pages [QSA,L]
