@@ -15,7 +15,16 @@ function getController($url)
     $path = REQUIRE_PATH .'system/controller';
     $page = '';
 
-    $controller = (file_exists("$url") || ! file_exists($path .'/' .ucfirst($url) .'.php')) ? 'Errors' : ucfirst($url);
+    # Carregar as rotas
+    $routes = json_decode(file_get_contents(REQUIRE_PATH .'routes.json'), true);
+    // echo '<pre>'.var_export($routes, 1).'</pre>';
+    
+    if (isset($routes[$url])) {
+        $controller = $routes[$url];
+    } else {
+        $controller = (file_exists("$url") || ! file_exists($path .'/' .ucfirst($url) .'.php')) ? 'Errors' : ucfirst($url);
+    }
+
     $controller = "Controller\\$controller";
     $action = 'index';
     $params = array();
