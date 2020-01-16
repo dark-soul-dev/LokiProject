@@ -8,9 +8,10 @@ $url = filter_input(INPUT_GET, 'url', FILTER_DEFAULT);
 $url = strip_tags(trim($url));
 $url = empty($url) ? 'home' : $url;
 
-getController($url);
+$controller = getController($url);
+loadController($controller);
 
-function getController($url)
+function getController(string $url)
 {
     $path = REQUIRE_PATH .'system/controller';
     $page = '';
@@ -21,10 +22,18 @@ function getController($url)
     
     if (isset($routes[$url])) {
         $controller = $routes[$url];
+    } elseif (file_exists($path .'/' .ucfirst($url) .'.php')) {
+        $url = ucfirst($url);
+        $controller = in_array($url, $routes) ? 'Errors' : $url;
     } else {
-        $controller = (file_exists("$url") || ! file_exists($path .'/' .ucfirst($url) .'.php')) ? 'Errors' : ucfirst($url);
+        $controller = 'Errors';
     }
 
+    return $controller;
+}
+
+function loadController(string $controller)
+{
     $controller = "Controller\\$controller";
     $action = 'index';
     $params = array();
