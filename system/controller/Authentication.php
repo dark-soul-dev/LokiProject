@@ -20,5 +20,8 @@ class Authentication extends Controller
     }
 
     public function register()
-    {}
+    {
+        $this->title = 'Registro';
+        $this->loadView('register');
+    }
 }
