@@ -4,6 +4,12 @@
     "autoload": {
         "psr-4": {
             "": ["system/"],
+            "App": [
+                "system/",
+                "system/database/"
+            ],
+            "Database\\": ["system/database/"],
+            "Model\\": ["system/"],
             "Controller\\": ["system/controller/"],
             "IvanFilho\\Database\\": ["vendor/ivanfilho/database/src/"]
         }
