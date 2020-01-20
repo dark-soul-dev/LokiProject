@@ -5,6 +5,9 @@ namespace Controller;
 abstract class Controller
 {
 
+    /** @var null|array Array of variables to be used inside a View. */
+    protected $data;
+
     public function __construct()
     {}
 
@@ -12,6 +15,7 @@ abstract class Controller
 
     protected function loadView(string $view)
     {
+        extract($this->data);
         $ext = $this->getExtension($view);
         include REQUIRE_PATH .'template/top.php';
         include REQUIRE_PATH ."pages/$view.$ext";
