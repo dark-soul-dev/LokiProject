@@ -12,44 +12,44 @@ namespace IvanFilho\Database;
 * @author       Ivan Filho <ivanfilho21@gmail.com>
 *
 * Created: Jul 22, 2019.
-* Last Modified: Dez 9, 2019.
+* Last Modified: Jan 16, 2020.
 */
 
 class Column
 {
-    private $name = "";
-    private $type = ""; # Name of the type. Ex: INT
+    private $name = '';
+    private $dataType = ''; # Name of the type. Ex: INT
     private $length = 0;
-    private $columnType = ""; # Name of the type plus the length. Ex: VARCHAR(200)
-    private $nullable = false;
-    private $extra = "";
-    private $key = "";
-    private $value = "";
+    private $columnType = ''; # Name of the type plus the length. Ex: VARCHAR(200)
+    private $nullable = true;
+    private $extra = '';
+    private $key = '';
+    private $value = '';
 
-    /* public function __construct($name, $dataType, $length=0, $nullable=true, $extra="", $key="", $value="")
+    public function __construct($name, $dataType, $length=0, $nullable=true, $extra='', $key='', $value='')
     {
-        $this->name($name);
-        $this->type($dataType);
-        $this->length($length);
-        $this->nullable($nullable);
-        $this->extra($extra);
-        $this->key($key);
+        $this->setName($name);
+        $this->setDataType($dataType);
+        $this->setLength($length);
+        $this->setNullable($nullable);
+        $this->setExtra($extra);
+        $this->setKey($key);
         $this->setValue($value);
-    } */
+    }
 
     public function getColumnInformation()
     {
-        $info = "";
-        $info .= BQ .$this->getName() .BQ ." " .$this->getColumnType();
+        $info = '';
+        $info .= BQ .$this->getName() .BQ .' ' .$this->getColumnType();
 
         if (! empty($this->getNullable()))
-            $info .= " " .$this->getNullable();
+            $info .= ' ' .$this->getNullable();
 
         if (! empty($this->getExtra()))
-            $info .= " " .$this->getExtra();
+            $info .= ' ' .$this->getExtra();
 
         if (! empty($this->getKey()))
-            $info .= " " .$this->getKey();
+            $info .= ' ' .$this->getKey();
 
         return $info;
     }
@@ -58,62 +58,14 @@ class Column
 
     private function createColumnType()
     {
-        $colType = $this->getType();
-        $colType .= $this->getLength() > 0 ? '(' .$this->getLength() .')' : '';
-        $this->columnType($colType);
+        $colType = $this->getDataType();
+        if ($this->getLength() > 0)
+            $colType .= '(' . $this->getLength() . ')';
+
+        $this->setColumnType($colType);
     }
 
     # Getters and Setters
-
-    public function name($name)
-    {
-        $this->name = $name;
-        return $this;
-    }
-
-    public function type($type)
-    {
-        $this->type = $type;
-        $this->createColumnType();
-        return $this;
-    }
-
-    public function length($length)
-    {
-        $this->length = $length;
-        $this->createColumnType();
-        return $this;
-    }
-
-    public function columnType($columnType)
-    {
-        $this->columnType = $columnType;
-        return $this;
-    }
-
-    public function nullable($nullable = true)
-    {
-        $this->nullable = $nullable;
-        return $this;
-    }
-
-    public function extra($extra)
-    {
-        $this->extra = $extra;
-        return $this;
-    }
-
-    public function key($key)
-    {
-        $this->key = $key;
-        return $this;
-    }
-
-    public function value($value)
-    {
-        $this->value = $value;
-        return $this;
-    }
 
     public function getName()
     {
@@ -125,9 +77,9 @@ class Column
         return $this->value;
     }
 
-    public function getType()
+    public function getDataType()
     {
-        return $this->type;
+        return $this->dataType;
     }
 
     public function getLength()
@@ -160,4 +112,40 @@ class Column
         $this->name = $name;
     }
 
+    public function setValue($value)
+    {
+        $this->value = $value;
+    }
+
+    public function setDataType($dataType)
+    {
+        $this->dataType = $dataType;
+        $this->createColumnType();
+    }
+
+    public function setLength($length)
+    {
+        $this->length = $length;
+        $this->createColumnType();
+    }
+
+    public function setColumnType($columnType)
+    {
+        $this->columnType = $columnType;
+    }
+
+    public function setNullable($nullable)
+    {
+        $this->nullable = ($nullable) ? '' : 'NOT NULL';
+    }
+
+    public function setKey($key)
+    {
+        $this->key = $key;
+    }
+    
+    public function setExtra($extra)
+    {
+        $this->extra = $extra;
+    }
 }
