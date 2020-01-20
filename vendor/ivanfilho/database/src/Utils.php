@@ -70,7 +70,7 @@ class Utils
     }
 
     /**
-     * Remove a string from the end of another string.
+     * Remove a string from the end of another string if it exists.
      * 
      * @param string $sourceStr The source string.
      * @param string $str The string to be removed.
@@ -79,7 +79,8 @@ class Utils
      */
     public static function removeLastString(string $sourceStr, string $str)
     {
-        return substr($sourceStr, 0, strlen($sourceStr) - strlen($str));
+        $sub = substr($sourceStr, strlen($sourceStr) - strlen($str));
+        return $sub === $str ? substr($sourceStr, 0, strlen($sourceStr) - strlen($str)) : $sourceStr;
     }
 
     /**
